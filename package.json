@@ -1,0 +1,218 @@
+{
+  "name": "zovo-har-viewer",
+  "displayName": "HAR Viewer & HTTP Archive Viewer",
+  "description": "Open .har files from browser DevTools as a request table with a timing waterfall, filters, headers, cookies and bodies. Copy as cURL or fetch, export filtered requests and save a redacted copy without tokens or cookies. Offline.",
+  "version": "0.1.0",
+  "publisher": "zovo",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#16324F",
+    "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.90.0",
+    "node": ">=18"
+  },
+  "categories": [
+    "Visualization",
+    "Debuggers",
+    "Other"
+  ],
+  "keywords": [
+    "har",
+    "har viewer",
+    "har file",
+    "http archive",
+    "http archive viewer",
+    "har analyzer",
+    "har explorer",
+    "har sanitizer",
+    "waterfall",
+    "network",
+    "network log",
+    "network tab",
+    "devtools",
+    "chrome devtools",
+    "firefox",
+    "requests",
+    "http",
+    "headers",
+    "cookies",
+    "curl",
+    "fetch",
+    "redact",
+    "sanitize",
+    "secrets",
+    "debugging",
+    "web performance",
+    "api",
+    "charles",
+    "fiddler",
+    "offline"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "harViewer.editor",
+        "displayName": "HAR Viewer",
+        "selector": [
+          {
+            "filenamePattern": "*.har"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "harViewer.openWith",
+        "title": "Open in HAR Viewer",
+        "category": "HAR Viewer"
+      },
+      {
+        "command": "harViewer.redact",
+        "title": "Save a Redacted Copy",
+        "category": "HAR Viewer"
+      },
+      {
+        "command": "harViewer.openWalkthrough",
+        "title": "Get Started",
+        "category": "HAR Viewer"
+      },
+      {
+        "command": "harViewer.supportDeveloper",
+        "title": "Support the developer",
+        "category": "HAR Viewer"
+      },
+      {
+        "command": "harViewer.moreViewers",
+        "title": "More free viewers",
+        "category": "HAR Viewer"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "harViewer.openWith",
+          "when": "resourceExtname =~ /\\.(har|json)$/i",
+          "group": "navigation@9"
+        },
+        {
+          "command": "harViewer.redact",
+          "when": "resourceExtname == .har",
+          "group": "7_modification@9"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "harViewer.openWith",
+          "when": "false"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "HAR Viewer",
+      "properties": {
+        "harViewer.maxFileMB": {
+          "type": "number",
+          "default": 300,
+          "minimum": 1,
+          "maximum": 1024,
+          "description": "Largest HAR file that is opened, in MB. A HAR is one JSON document, so the whole file is read into memory."
+        },
+        "harViewer.slowRequestMs": {
+          "type": "number",
+          "default": 1000,
+          "minimum": 1,
+          "description": "A request that takes this many milliseconds or more counts as slow. The Slow filter and the summary use it."
+        },
+        "harViewer.maxBodyKB": {
+          "type": "number",
+          "default": 1024,
+          "minimum": 16,
+          "maximum": 65536,
+          "description": "Largest request or response body shown in the details pane, in KB. Longer bodies are cut, and Copy still copies the full text."
+        },
+        "harViewer.askForRating": {
+          "type": "boolean",
+          "default": true,
+          "description": "Ask one time for a Marketplace rating after you have used HAR Viewer for a few days. You can answer \"Later\" or \"Don't ask again\". Nothing is sent anywhere."
+        },
+        "harViewer.showSupportLinks": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the small Sponsor and More free viewers links in the status line of the viewer. The change shows in files you open next. Nothing is sent anywhere."
+        }
+      }
+    },
+    "walkthroughs": [
+      {
+        "id": "harViewer.start",
+        "title": "Get started with HAR Viewer",
+        "description": "Read network captures from browser DevTools in VS Code, offline.",
+        "steps": [
+          {
+            "id": "open",
+            "title": "Open a HAR file",
+            "description": "Save a HAR from the Network tab of Chrome, Edge, Firefox or Safari, then click the .har file in the Explorer.\n[Find a HAR file](command:workbench.action.quickOpen?%5B%22.har%22%5D)",
+            "media": {
+              "image": "images/har-viewer.png",
+              "altText": "A HAR file in HAR Viewer with the request table, the timing waterfall and the details pane."
+            },
+            "completionEvents": [
+              "onCommand:workbench.action.quickOpen"
+            ]
+          },
+          {
+            "id": "filter",
+            "title": "Find slow and failed requests",
+            "description": "Filter by type, status, domain or text. The Slow and Failed buttons jump to the requests that need a look, and Export filtered writes them to a new HAR.",
+            "media": {
+              "markdown": "walkthrough/filter.md"
+            }
+          },
+          {
+            "id": "redact",
+            "title": "Share a redacted copy",
+            "description": "A banner warns when the file holds Authorization headers, cookies or tokens. Save a redacted copy before you attach a HAR to a ticket.\n[Save a redacted copy](command:harViewer.redact)",
+            "media": {
+              "markdown": "walkthrough/redact.md"
+            },
+            "completionEvents": [
+              "onCommand:harViewer.redact"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "build": "node scripts/build.js --production",
+    "test": "node scripts/build.js --production && node --test \"test/*.test.js\"",
+    "samples": "node scripts/make-samples.js samples",
+    "package": "npm run build && npx -y @vscode/vsce package --no-dependencies -o dist/"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  },
+  "homepage": "https://github.com/theluckystrike/har-viewer-vscode#readme",
+  "bugs": {
+    "url": "https://github.com/theluckystrike/har-viewer-vscode/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theluckystrike/har-viewer-vscode"
+  },
+  "sponsor": {
+    "url": "https://github.com/sponsors/theluckystrike"
+  }
+}
