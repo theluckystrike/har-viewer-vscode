@@ -2,7 +2,7 @@
   "name": "zovo-har-viewer",
   "displayName": "HAR Viewer & HAR File Analyzer (HTTP Archive)",
   "description": "HAR viewer and HAR file analyzer for .har files from browser DevTools: a request table with a timing waterfall, filters, headers, cookies and bodies. Copy as cURL or fetch, export filtered requests and save a redacted copy without tokens or cookies. Offline.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "zovo",
   "license": "MIT",
   "icon": "icon.png",
