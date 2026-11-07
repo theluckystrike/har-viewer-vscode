@@ -1,7 +1,7 @@
 {
   "name": "zovo-har-viewer",
-  "displayName": "HAR Viewer & HTTP Archive Viewer",
-  "description": "Open .har files from browser DevTools as a request table with a timing waterfall, filters, headers, cookies and bodies. Copy as cURL or fetch, export filtered requests and save a redacted copy without tokens or cookies. Offline.",
+  "displayName": "HAR Viewer & HAR File Analyzer (HTTP Archive)",
+  "description": "HAR viewer and HAR file analyzer for .har files from browser DevTools: a request table with a timing waterfall, filters, headers, cookies and bodies. Copy as cURL or fetch, export filtered requests and save a redacted copy without tokens or cookies. Offline.",
   "version": "0.1.0",
   "publisher": "zovo",
   "license": "MIT",
@@ -20,12 +20,13 @@
     "Other"
   ],
   "keywords": [
-    "har",
     "har viewer",
     "har file",
+    "har analyzer",
     "http archive",
     "http archive viewer",
-    "har analyzer",
+    "network log viewer",
+    "har",
     "har explorer",
     "har sanitizer",
     "waterfall",
@@ -48,8 +49,7 @@
     "web performance",
     "api",
     "charles",
-    "fiddler",
-    "offline"
+    "fiddler"
   ],
   "main": "./dist/extension.js",
   "activationEvents": [],

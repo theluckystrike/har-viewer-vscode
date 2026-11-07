@@ -1,4 +1,4 @@
-# HAR Viewer & HTTP Archive Viewer
+# HAR Viewer & HAR File Analyzer (HTTP Archive)
 
 Open a .har file from browser DevTools in VS Code and see every request in a table with a timing waterfall, then copy any call as cURL or save a redacted copy that is safe to share.
 
