@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- "More free viewers" now starts with the Zovo extensions most related to this one. Picking one opens its Marketplace page, where you choose to install it.
+- The README has a "Support Zovo" section with GitHub Sponsors and the developer's GitHub profile, and "More tools by Zovo" lists related extensions.
+
 ## 0.1.0 (2026-11-07)
 
 - First release. Opens .har files in a read-only viewer with a request table and a timing waterfall.
